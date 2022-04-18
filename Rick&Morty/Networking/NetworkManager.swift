@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkManager {
+final class NetworkManager {
     
     func fetchData(url: String, completion: @escaping (Result<AllData?, Error>)-> Void) {
         guard let url = URL(string: url) else {return}

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PersonageViewController: UIViewController {
+final class PersonageViewController: UIViewController {
     
     // MARK: - Private properties
     
@@ -22,19 +22,19 @@ class PersonageViewController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var backBarButtonLbl: UIBarButtonItem!
-
+    
     // MARK: - Buttons
     
     @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
         pageNumber += 1
         getData()
-        goToTop()
+        helperForUI()
     }
     @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
         if pageNumber > 1 {
             pageNumber -= 1
             getData()
-            goToTop()
+            helperForUI()
         }
     }
     
@@ -54,6 +54,7 @@ extension PersonageViewController {
     private func setupUI() {
         setupTable()
         setupImageInNavBar()
+        backBarButtonLbl.isEnabled = false
     }
     
     private func setupImageInNavBar(){
@@ -76,8 +77,9 @@ extension PersonageViewController {
         table.delegate = self
     }
     
-    private func goToTop(){
+    private func helperForUI(){
         table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        pageNumber == 1 ? (backBarButtonLbl.isEnabled = false) : (backBarButtonLbl.isEnabled = true)
     }
     
     private func getData(){
