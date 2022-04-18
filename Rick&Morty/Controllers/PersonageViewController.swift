@@ -21,13 +21,15 @@ class PersonageViewController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var backBarButtonLbl: UIBarButtonItem!
+
+    // MARK: - Buttons
     
     @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
         pageNumber += 1
         getData()
+        table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
-        
         if pageNumber > 1 {
             pageNumber -= 1
             getData()
@@ -38,8 +40,7 @@ class PersonageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTable()
-        imageInNavBar()
+        setupUI()
         getData()
     }
 }
@@ -48,7 +49,12 @@ class PersonageViewController: UIViewController {
 
 extension PersonageViewController {
     
-    private func imageInNavBar(){
+    private func setupUI() {
+        setupTable()
+        setupImageInNavBar()
+    }
+    
+    private func setupImageInNavBar(){
         if let navController = navigationController {
             let imageLogo = UIImage(named: "ram.png")
             let widthNavBar = navController.navigationBar.frame.width
@@ -70,7 +76,8 @@ extension PersonageViewController {
     
     private func getData(){
         let urlString = networkManager.baseURL
-        networkManager.fetchData(page: urlString + "?page=\(pageNumber)") { (result) in
+        let pageURL = "?page=\(pageNumber)"
+        networkManager.fetchData(page: urlString + pageURL) { (result) in
             switch result {
             case .success(let personage):
                 DispatchQueue.main.async {
