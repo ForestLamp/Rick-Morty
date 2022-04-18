@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wth-v7-aFf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,18 +14,18 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PersonageViewController" customModule="Rick_Morty" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qJt-Es-0gA">
-                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="160" id="HOw-Qg-plX" customClass="CustomTableViewCell" customModule="Rick_Morty" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="160"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HOw-Qg-plX" id="iEN-Bp-niO">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rom-uN-Pci">
@@ -34,7 +36,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-3A-fgz">
-                                                    <rect key="frame" x="180" y="15" width="405" height="130"/>
+                                                    <rect key="frame" x="180" y="15" width="219" height="130"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olq-EH-rGU" userLabel="Имя">
                                                             <rect key="frame" x="0.0" y="0.0" width="33.5" height="20.5"/>
@@ -59,16 +61,22 @@
                                                         <constraint firstAttribute="height" constant="130" id="mow-ql-UOW"/>
                                                     </constraints>
                                                 </stackView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tnh-ld-mqa">
+                                                    <rect key="frame" x="80" y="70" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rom-uN-Pci" firstAttribute="leading" secondItem="iEN-Bp-niO" secondAttribute="leading" constant="15" id="2a3-28-jZs"/>
+                                                <constraint firstItem="tnh-ld-mqa" firstAttribute="centerY" secondItem="rom-uN-Pci" secondAttribute="centerY" id="G52-aW-yr2"/>
                                                 <constraint firstItem="rom-uN-Pci" firstAttribute="centerY" secondItem="iEN-Bp-niO" secondAttribute="centerY" id="Hq4-w5-cR2"/>
                                                 <constraint firstAttribute="trailing" secondItem="2Bz-3A-fgz" secondAttribute="trailing" constant="15" id="ZgM-Jp-0dI"/>
+                                                <constraint firstItem="tnh-ld-mqa" firstAttribute="centerX" secondItem="rom-uN-Pci" secondAttribute="centerX" id="cFr-eC-AfG"/>
                                                 <constraint firstItem="2Bz-3A-fgz" firstAttribute="centerY" secondItem="iEN-Bp-niO" secondAttribute="centerY" id="xDw-Mt-Yhu"/>
                                                 <constraint firstItem="2Bz-3A-fgz" firstAttribute="leading" secondItem="rom-uN-Pci" secondAttribute="trailing" constant="15" id="ytz-xs-F6k"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="tnh-ld-mqa" id="Wq2-0S-ZCM"/>
                                             <outlet property="genderOfPersonage" destination="1uG-te-k7T" id="eNe-NW-hnD"/>
                                             <outlet property="imageOfPersonage" destination="rom-uN-Pci" id="X1H-HX-KCI"/>
                                             <outlet property="nameOfPersonage" destination="olq-EH-rGU" id="QHm-fY-0Eu"/>

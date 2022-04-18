@@ -27,12 +27,13 @@ class PersonageViewController: UIViewController {
     @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
         pageNumber += 1
         getData()
-        table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        goToTop()
     }
     @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
         if pageNumber > 1 {
             pageNumber -= 1
             getData()
+            goToTop()
         }
     }
     
@@ -72,6 +73,10 @@ extension PersonageViewController {
     private func setupTable(){
         table.dataSource = self
         table.delegate = self
+    }
+    
+    private func goToTop(){
+        table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     private func getData(){

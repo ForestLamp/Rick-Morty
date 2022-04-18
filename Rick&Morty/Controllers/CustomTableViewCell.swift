@@ -9,11 +9,13 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var imageOfPersonage: UIImageView!
     @IBOutlet weak var nameOfPersonage: UILabel!
     @IBOutlet weak var speciesOfPersonage: UILabel!
     @IBOutlet weak var genderOfPersonage: UILabel!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private lazy var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         clipsToBounds = true
@@ -38,6 +40,7 @@ extension CustomTableViewCell {
     private func setupUI(){
         imageOfPersonage.layer.cornerRadius = imageOfPersonage.frame.height / 15
         contentView.layer.insertSublayer(gradientLayer, at: 0)
+        activityIndicator.startAnimating()
     }
     
     func setupCell(model: PersonageModel) {
@@ -48,8 +51,11 @@ extension CustomTableViewCell {
         DispatchQueue.global().async {
             guard let imageUrl = URL(string: model.image) else { return }
             guard let imageData = try? Data(contentsOf: imageUrl) else { return }
+            
             DispatchQueue.main.async {
                 self.imageOfPersonage.image = UIImage(data: imageData)
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
             }
         }
     }
