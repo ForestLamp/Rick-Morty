@@ -9,9 +9,7 @@ import Foundation
 
 class NetworkManager {
     
-    let baseURL = "https://rickandmortyapi.com/api/character/"
-    
-    func fetchData(page url: String, completion: @escaping (Result<AllData?, Error>)-> Void) {
+    func fetchData(url: String, completion: @escaping (Result<AllData?, Error>)-> Void) {
         guard let url = URL(string: url) else {return}
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in

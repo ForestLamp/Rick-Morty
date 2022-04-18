@@ -13,6 +13,7 @@ class PersonageViewController: UIViewController {
     
     private let reuseID = "Cell"
     private let networkManager = NetworkManager()
+    private let api = Api()
     private let customCell = CustomTableViewCell()
     private var personages: [PersonageModel] = []
     private var pageNumber = 1
@@ -80,9 +81,9 @@ extension PersonageViewController {
     }
     
     private func getData(){
-        let urlString = networkManager.baseURL
+        let baseURL = api.baseURL
         let pageURL = "?page=\(pageNumber)"
-        networkManager.fetchData(page: urlString + pageURL) { (result) in
+        networkManager.fetchData(url: baseURL + pageURL) { (result) in
             switch result {
             case .success(let personage):
                 DispatchQueue.main.async {
