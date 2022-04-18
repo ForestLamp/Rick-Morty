@@ -42,8 +42,8 @@ extension CustomTableViewCell {
     
     func setupCell(model: PersonageModel) {
         nameOfPersonage.text = model.name
-        genderOfPersonage.text = model.gender.rawValue
-        speciesOfPersonage.text = model.species.rawValue
+        genderOfPersonage.text = model.gender
+        speciesOfPersonage.text = model.species
         imageOfPersonage.image = UIImage()
         DispatchQueue.global().async {
             guard let imageUrl = URL(string: model.image) else { return }

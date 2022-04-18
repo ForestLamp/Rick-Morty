@@ -38,8 +38,8 @@ class DetailsViewController: UIViewController {
     
     func setData(model: PersonageModel) {
         name = model.name
-        species = model.species.rawValue
-        gender = model.gender.rawValue
+        species = model.species
+        gender = model.gender
         status = model.status
         lastLocation = model.location.name
         image = model.image

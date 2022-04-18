@@ -9,16 +9,30 @@ import UIKit
 
 class PersonageViewController: UIViewController {
     
-    // MARK: - Outlets
-    
-    @IBOutlet weak var table: UITableView!
-    
     // MARK: - Private properties
     
     private let reuseID = "Cell"
     private let networkManager = NetworkManager()
-    let customCell = CustomTableViewCell()
+    private let customCell = CustomTableViewCell()
     private var personages: [PersonageModel] = []
+    private var pageNumber = 1
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var backBarButtonLbl: UIBarButtonItem!
+    
+    @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
+        pageNumber += 1
+        getData()
+    }
+    @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
+        
+        if pageNumber > 1 {
+            pageNumber -= 1
+            getData()
+        }
+    }
     
     // MARK: - Life cicle
     
@@ -39,9 +53,7 @@ extension PersonageViewController {
             let imageLogo = UIImage(named: "ram.png")
             let widthNavBar = navController.navigationBar.frame.width
             let heightNavBar = navController.navigationBar.frame.height
-            
             let widthForView = widthNavBar * 0.4
-            
             let logoContainer = UIView(frame: CGRect(x: 0, y: 0, width: widthForView, height: heightNavBar))
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: widthForView, height: heightNavBar))
             imageView.image = imageLogo
@@ -57,7 +69,8 @@ extension PersonageViewController {
     }
     
     private func getData(){
-        networkManager.fetchData { (result) in
+        let urlString = networkManager.baseURL
+        networkManager.fetchData(page: urlString + "?page=\(pageNumber)") { (result) in
             switch result {
             case .success(let personage):
                 DispatchQueue.main.async {
