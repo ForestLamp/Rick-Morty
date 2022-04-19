@@ -12,6 +12,17 @@ class CustomTableViewCell: UITableViewCell {
     // MARK: - Outlets
     
     @IBOutlet weak var imageOfPersonage: UIImageView!
+    
+    var cellImage: UIImage? {
+        get {
+            return imageOfPersonage.image
+        } set {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            imageOfPersonage.image = newValue
+        }
+    }
+    
     @IBOutlet weak var nameOfPersonage: UILabel!
     @IBOutlet weak var speciesOfPersonage: UILabel!
     @IBOutlet weak var genderOfPersonage: UILabel!
@@ -49,21 +60,20 @@ extension CustomTableViewCell {
     private func setupUI(){
         imageOfPersonage.layer.cornerRadius = imageOfPersonage.frame.height / 15
         contentView.layer.insertSublayer(gradientLayer, at: 0)
-        activityIndicator.startAnimating()
     }
     
     func setupCell(model: PersonageModel) {
         nameOfPersonage.text = model.name
         genderOfPersonage.text = model.gender
         speciesOfPersonage.text = model.species
-        imageOfPersonage.image = UIImage()
+        cellImage = UIImage()
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
         DispatchQueue.global().async {
             guard let imageUrl = URL(string: model.image) else { return }
             guard let imageData = try? Data(contentsOf: imageUrl) else { return }
             DispatchQueue.main.async {
-                self.imageOfPersonage.image = UIImage(data: imageData)
-                self.activityIndicator.isHidden = true
-                self.activityIndicator.stopAnimating()
+                self.cellImage = UIImage(data: imageData)
             }
         }
     }
