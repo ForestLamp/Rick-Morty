@@ -22,12 +22,12 @@ final class PersonageViewController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var backBarButtonLbl: UIBarButtonItem!
+    @IBOutlet weak var forwardButtonLbl: UIBarButtonItem!
     
     // MARK: - Buttons
     
     @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
         pageNumber += 1
-        getData()
         helperForUI()
     }
     @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
@@ -42,8 +42,8 @@ final class PersonageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         getData()
+        setupUI()
     }
 }
 
@@ -80,9 +80,11 @@ extension PersonageViewController {
     private func helperForUI(){
         table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         pageNumber == 1 ? (backBarButtonLbl.isEnabled = false) : (backBarButtonLbl.isEnabled = true)
+        pageNumber == 42 ? (forwardButtonLbl.isEnabled = false) : (forwardButtonLbl.isEnabled = true)
     }
     
     private func getData(){
+        
         let baseURL = api.baseURL
         let pageURL = "?page=\(pageNumber)"
         networkManager.fetchData(url: baseURL + pageURL) { (result) in
@@ -102,17 +104,20 @@ extension PersonageViewController {
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension PersonageViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableView.rowHeight = 160
         return personages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! CustomTableViewCell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? CustomTableViewCell {
         let personage = personages[indexPath.row]
         cell.setupCell(model: personage)
         return cell
     }
+        return UITableViewCell()
+}
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

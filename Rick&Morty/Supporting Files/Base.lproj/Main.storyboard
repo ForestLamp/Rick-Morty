@@ -109,6 +109,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backBarButtonLbl" destination="LLv-r4-fnh" id="kmc-fU-dUQ"/>
+                        <outlet property="forwardButtonLbl" destination="cgg-HM-q1j" id="XTX-Wo-sz4"/>
                         <outlet property="table" destination="qJt-Es-0gA" id="9J7-Wu-DVe"/>
                     </connections>
                 </viewController>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomTableViewCell: UITableViewCell {
+class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Outlets
     
@@ -31,6 +31,15 @@ final class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupUI()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageOfPersonage.image = nil
+        nameOfPersonage.text = nil
+        genderOfPersonage.text = nil
+        speciesOfPersonage.text = nil
+    }
+    
 }
 
 // MARK: - Setup UI & Cell
@@ -51,7 +60,6 @@ extension CustomTableViewCell {
         DispatchQueue.global().async {
             guard let imageUrl = URL(string: model.image) else { return }
             guard let imageData = try? Data(contentsOf: imageUrl) else { return }
-            
             DispatchQueue.main.async {
                 self.imageOfPersonage.image = UIImage(data: imageData)
                 self.activityIndicator.isHidden = true

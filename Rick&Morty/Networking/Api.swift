@@ -10,5 +10,4 @@ import Foundation
 final class Api {
     
     let baseURL = "https://rickandmortyapi.com/api/character/"
-    
 }
