@@ -22,7 +22,8 @@ final class NetworkManager {
     // MARK: - Methods
     
     func fetchData(url: String) {
-        api.decodeData(url: url) { (result) in
+        api.decodeData(url: url) { [weak self] (result) in
+            guard let self = self else {return}
             switch result {
             case .success(let personage):
                 DispatchQueue.main.async {
