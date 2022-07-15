@@ -9,6 +9,8 @@ import UIKit
 
 final class DetailsViewController: UIViewController {
     
+    //MARK: - Outlets
+    
     @IBOutlet weak var detailsImageView: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var speciesLbl: UILabel!
@@ -17,6 +19,7 @@ final class DetailsViewController: UIViewController {
     @IBOutlet weak var lastLocationLbl: UILabel!
     @IBOutlet weak var episodesCountLbl: UILabel!
     
+    //MARK: - Private properties
     
     private var name = ""
     private var species = ""
@@ -35,6 +38,8 @@ final class DetailsViewController: UIViewController {
         super.viewWillAppear(false)
         
     }
+    
+    // MARK: - Methods
     
     func setData(model: PersonageModel) {
         name = model.name

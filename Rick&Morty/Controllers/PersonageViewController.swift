@@ -29,6 +29,7 @@ final class PersonageViewController: UIViewController {
     @IBAction func nextPageButtonTapped(_ sender: UIBarButtonItem) {
         pageNumber += 1
         helperForUI()
+        getData()
     }
     @IBAction func backBarButtonTapped(_ sender: UIBarButtonItem) {
         if pageNumber > 1 {
@@ -47,7 +48,34 @@ final class PersonageViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
+    // MARK: - UITableViewDataSource, UITableViewDelegate
+
+extension PersonageViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.rowHeight = 160
+        return personages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? CustomTableViewCell {
+        let personage = personages[indexPath.row]
+        cell.setupCell(model: personage)
+        return cell
+    }
+        return UITableViewCell()
+}
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let vc = UIStoryboard(name: "DetailsViewController", bundle: nil).instantiateInitialViewController() as? DetailsViewController {
+            vc.setData(model: personages[indexPath.row])
+            present(vc, animated: true, completion: nil)
+        }
+    }
+}
+
+    // MARK: - Extension
 
 extension PersonageViewController {
     
@@ -79,51 +107,26 @@ extension PersonageViewController {
     
     private func helperForUI(){
         table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        pageNumber == 1 ? (backBarButtonLbl.isEnabled = false) : (backBarButtonLbl.isEnabled = true)
-        pageNumber == 42 ? (forwardButtonLbl.isEnabled = false) : (forwardButtonLbl.isEnabled = true)
+        backBarButtonLbl.isEnabled = pageNumber != 1
+        forwardButtonLbl.isEnabled = pageNumber != 42
     }
     
     private func getData(){
-        
         let baseURL = api.baseURL
         let pageURL = "?page=\(pageNumber)"
-        networkManager.fetchData(url: baseURL + pageURL) { (result) in
-            switch result {
-            case .success(let personage):
-                DispatchQueue.main.async {
-                    self.personages = personage?.results ?? []
-                    self.table.reloadData()
-                }
-            case .failure(_):
-                self.showAlertError(text: "Пожалуйста, проверьте соединение.")
-            }
-        }
+        networkManager.fetchData(url: baseURL + pageURL)
+        networkManager.delegate = self
     }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
-
-extension PersonageViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.rowHeight = 160
-        return personages.count
+extension PersonageViewController: NetworkManagerDelegate {
+    func showData(results: [PersonageModel]) {
+        personages = results
+        table.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? CustomTableViewCell {
-        let personage = personages[indexPath.row]
-        cell.setupCell(model: personage)
-        return cell
-    }
-        return UITableViewCell()
-}
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let vc = UIStoryboard(name: "DetailsViewController", bundle: nil).instantiateInitialViewController() as? DetailsViewController {
-            vc.setData(model: personages[indexPath.row])
-            present(vc, animated: true, completion: nil)
-        }
+    func showError() {
+        let alert = AlertManager.showAlertError(text: "Пожалуйста, проверьте соединение.")
+        present(alert, animated: true, completion: nil)
     }
 }

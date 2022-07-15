@@ -7,22 +7,30 @@
 
 import Foundation
 
+    // MARK: - Protocol
+
+protocol NetworkManagerDelegate: class {
+    func showData(results: [PersonageModel])
+    func showError()
+}
+
 final class NetworkManager {
     
-    func fetchData(url: String, completion: @escaping (Result<AllData?, Error>)-> Void) {
-        guard let url = URL(string: url) else {return}
-        let session = URLSession.shared
-        session.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Ошибка запроса: \(error)")
+    private let api = Api()
+    weak var delegate: NetworkManagerDelegate?
+    
+    // MARK: - Methods
+    
+    func fetchData(url: String) {
+        api.decodeData(url: url) { (result) in
+            switch result {
+            case .success(let personage):
+                DispatchQueue.main.async {
+                    self.delegate?.showData(results: personage?.results ?? [])
+                }
+            case .failure(_):
+                self.delegate?.showError()
             }
-            guard let data = data else {return}
-            do {
-                let json = try JSONDecoder().decode(AllData.self, from: data)
-                completion(.success(json))
-            } catch let error {
-                print("Ошибка парсинга: \(error)")
-            }
-        }.resume()
+        }
     }
 }
