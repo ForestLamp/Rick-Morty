@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F0629A4280A2B6B00AE5CA8 /* DetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F0629A3280A2B6B00AE5CA8 /* DetailsViewController.storyboard */; };
-		9F0629A9280AD65A00AE5CA8 /* Alertmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0629A8280AD65A00AE5CA8 /* Alertmanager.swift */; };
+		9F0629A9280AD65A00AE5CA8 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0629A8280AD65A00AE5CA8 /* AlertManager.swift */; };
 		9F5B2BA228097B9000D85F30 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B2BA128097B9000D85F30 /* DetailsViewController.swift */; };
 		9F77952B2881652F0075E487 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F77952A2881652F0075E487 /* SceneDelegate.swift */; };
 		9F800187280DA3EE00F8D7BF /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F800186280DA3EE00F8D7BF /* Api.swift */; };
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		9F0629A3280A2B6B00AE5CA8 /* DetailsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailsViewController.storyboard; sourceTree = "<group>"; };
-		9F0629A8280AD65A00AE5CA8 /* Alertmanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertmanager.swift; sourceTree = "<group>"; };
+		9F0629A8280AD65A00AE5CA8 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		9F5B2BA128097B9000D85F30 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		9F77952A2881652F0075E487 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9F800186280DA3EE00F8D7BF /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		9F0629AB280AD67000AE5CA8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9F0629A8280AD65A00AE5CA8 /* Alertmanager.swift */,
+				9F0629A8280AD65A00AE5CA8 /* AlertManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				9F9C1B2C2808C12B00DA9357 /* NetworkManager.swift in Sources */,
 				9F5B2BA228097B9000D85F30 /* DetailsViewController.swift in Sources */,
 				9F9C1B272808BA4100DA9357 /* CustomTableViewCell.swift in Sources */,
-				9F0629A9280AD65A00AE5CA8 /* Alertmanager.swift in Sources */,
+				9F0629A9280AD65A00AE5CA8 /* AlertManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
